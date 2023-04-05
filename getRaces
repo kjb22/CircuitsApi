@@ -1,0 +1,39 @@
+import org.json.JSONObject;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.Scanner;
+
+public class getRaces {
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        String season = "";
+        while(!"x".equals(season)){
+            System.out.print("Enter a value: ");
+            season = scanner.nextLine();
+            if(!"x".equals(season) && season.length() == 4){
+                //String season = "2022"; // the season you want to get the number of races for
+                String url = "http://ergast.com/api/f1/" + season + ".json";
+
+                HttpClient client = HttpClient.newHttpClient();
+                HttpRequest request = HttpRequest.newBuilder()
+                        .uri(URI.create(url))
+                        .build();
+
+                try {
+                    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                    JSONObject json = new JSONObject(response.body());
+                    int numRaces = json.getJSONObject("MRData").getJSONObject("RaceTable").getJSONArray("Races").length();
+
+                    System.out.println("The number of races in the " + season + " Formula One season is " + numRaces);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                System.out.println("");
+            }
+        }
+
+    }
+}
