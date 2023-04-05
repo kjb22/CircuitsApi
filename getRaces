@@ -11,7 +11,7 @@ public class getRaces {
         Scanner scanner = new Scanner(System.in);
         String season = "";
         while(!"x".equals(season)){
-            System.out.print("Enter a value: ");
+            System.out.print("Enter season value: ");
             season = scanner.nextLine();
             if(!"x".equals(season) && season.length() == 4){
                 //String season = "2022"; // the season you want to get the number of races for
