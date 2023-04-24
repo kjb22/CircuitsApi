@@ -4,20 +4,14 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-
 public class getRaces {
-    public static void main(String[] args) {
 
-        String[] season = {"2017", "2016", "1966", "1950"};
+    public static void main(String[] args) {
+        String[] season = {"2017", "2016", "1966", "300"};
         System.out.println("| season | numberOfCircuits |");
+
         for(String x: season){
-            try {
-                int checkData = Integer.parseInt(x);
-                assert true;
-                identifyInput(x);
-            } catch (Exception e) {
-                assert false;
-            }
+            identifyInput(x);
         }
     }
 
@@ -35,9 +29,10 @@ public class getRaces {
             int numRaces = json.getJSONObject("MRData").getJSONObject("RaceTable").getJSONArray("Races").length();
             Object raceDetails = json.getJSONObject("MRData").getJSONObject("RaceTable").getJSONArray("Races");
 
-            System.out.println("| " + inp + " | " + numRaces + " |");
+            System.out.print("| " + inp + " | " + numRaces + " |");
+            System.out.println("\u001B[32m" + " Season {" + inp+ "} data passed" + "\u001B[0m");
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("\u001B[31m" + "Season {" + inp+ "} data failed" + "\u001B[0m");
         }
     }
 }
